@@ -1,0 +1,8 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "title": "Codegen Proto Executor",
+  "description": "Generate protobuf clients and synchronize their package dependencies",
+  "type": "object",
+  "properties": {},
+  "required": []
+}

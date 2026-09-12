@@ -1,0 +1,11 @@
+package main
+
+import (
+	"fmt"
+
+	_ "<%= modulePrefix %>/bufgen/go/ayuna/v1"
+)
+
+func main() {
+    fmt.Println("Hello from Ayuna!")
+}

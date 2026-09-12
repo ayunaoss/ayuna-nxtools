@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/schema",
+  "$id": "Bufgen",
+  "title": "Initialize bufgen folder structure",
+  "type": "object",
+  "properties": {
+    "repoNamespace": {
+      "type": "string",
+      "description": "The namespace of the repository.",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What is the repository namespace?"
+    },
+    "authorName": {
+      "type": "string",
+      "description": "The name of the author.",
+      "$default": {
+        "$source": "argv",
+        "index": 1
+      },
+      "x-prompt": "What is the author's name?"
+    },
+    "authorEmail": {
+      "type": "string",
+      "description": "The email of the author.",
+      "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+      "$default": {
+        "$source": "argv",
+        "index": 2
+      },
+      "x-prompt": "What is the author's email?"
+    },
+    "license": {
+      "type": "string",
+      "description": "The license of the project.",
+      "$default": {
+        "$source": "argv",
+        "index": 3
+      },
+      "x-prompt": "What license would you like to use?"
+    },
+    "goModPrefix": {
+      "type": "string",
+      "description": "The module prefix for the Go library",
+      "default": "github.com/org/project",
+      "x-prompt": "What is the module prefix for the Go library?"
+    }
+  },
+  "required": ["repoNamespace", "authorName", "authorEmail", "license"]
+}

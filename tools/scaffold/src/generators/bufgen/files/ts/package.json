@@ -1,0 +1,68 @@
+{
+  "private": false,
+  "type": "module",
+  "name": "@<%= repoNamespace %>/bufgen",
+  "version": "0.1.0",
+  "description": "The buf.build generated typescript bindings for @<%= repoNamespace %>/bufgen project.",
+  "exports": {
+    "./<%= repoNamespace %>/*.js": {
+      "types": "./dist/<%= repoNamespace %>/*.d.ts",
+      "default": "./dist/<%= repoNamespace %>/*.js"
+    },
+    "./buf/*.js": {
+      "types": "./dist/buf/*.d.ts",
+      "default": "./dist/buf/*.js"
+    },
+    "./google/*.js": {
+      "types": "./dist/google/*.d.ts",
+      "default": "./dist/google/*.js"
+    }
+  },
+  "scripts": {
+    "clean": "rimraf dist",
+    "deepclean": "rimraf dist node_modules .tsbuildinfo",
+    "lint": "oxlint <%= repoNamespace %> buf",
+    "format": "echo 'No formatting required for generated code'",
+    "test": "jest",
+    "build": "pnpm run clean && tsc -p tsconfig.json",
+    "prepublishOnly": "pnpm run build"
+  },
+  "keywords": [
+    "<%= repoNamespace %>",
+    "protobuf",
+    "library"
+  ],
+  "author": {
+    "name": "<%= authorName %>",
+    "email": "<%= authorEmail %>"
+  },
+  "license": "<%= license %>",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.13.2",
+    "@types/pg": "^8.20.0",
+    "jest": "^30.4.2",
+    "prettier": "^3.8.4",
+    "rimraf": "^6.1.3",
+    "oxfmt": "^0.66.0",
+    "oxlint": "^1.75.0",
+    "ts-jest": "^29.4.11",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.61.1"
+  },
+  "dependencies": {
+    "@bufbuild/protobuf": "^2.14.0",
+    "@bufbuild/protovalidate": "^1.2.0",
+    "@connectrpc/connect": "^2.1.2",
+    "@connectrpc/connect-node": "^2.1.2"
+  }
+}

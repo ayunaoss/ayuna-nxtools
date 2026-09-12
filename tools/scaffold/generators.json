@@ -1,0 +1,39 @@
+{
+  "generators": {
+    "bufgen": {
+      "factory": "./dist/generators/bufgen/bufgen.js",
+      "schema": "./dist/generators/bufgen/schema.json",
+      "description": "bufgen generator"
+    },
+    "go-lib": {
+      "factory": "./dist/generators/go-lib/go-lib.js",
+      "schema": "./dist/generators/go-lib/schema.json",
+      "description": "go-lib generator"
+    },
+    "py-lib": {
+      "factory": "./dist/generators/py-lib/py-lib.js",
+      "schema": "./dist/generators/py-lib/schema.json",
+      "description": "py-lib generator"
+    },
+    "ts-lib": {
+      "factory": "./dist/generators/ts-lib/ts-lib.js",
+      "schema": "./dist/generators/ts-lib/schema.json",
+      "description": "ts-lib generator"
+    },
+    "go-app": {
+      "factory": "./dist/generators/go-app/go-app.js",
+      "schema": "./dist/generators/go-app/schema.json",
+      "description": "go-app generator"
+    },
+    "py-app": {
+      "factory": "./dist/generators/py-app/py-app.js",
+      "schema": "./dist/generators/py-app/schema.json",
+      "description": "py-app generator"
+    },
+    "ts-app": {
+      "factory": "./dist/generators/ts-app/ts-app.js",
+      "schema": "./dist/generators/ts-app/schema.json",
+      "description": "ts-app generator"
+    }
+  }
+}

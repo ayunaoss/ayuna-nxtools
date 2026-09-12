@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/schema",
+  "$id": "PyLib",
+  "title": "Python Library Generator",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the Python library",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What is the Python library name would you like to use?"
+    },
+    "repoNamespace": {
+      "type": "string",
+      "description": "The namespace of the repository.",
+      "$default": {
+        "$source": "argv",
+        "index": 1
+      },
+      "x-prompt": "What is the repository namespace?"
+    },
+    "authorName": {
+      "type": "string",
+      "description": "The name of the author.",
+      "$default": {
+        "$source": "argv",
+        "index": 2
+      },
+      "x-prompt": "What is the author's name?"
+    },
+    "authorEmail": {
+      "type": "string",
+      "description": "The email of the author.",
+      "$default": {
+        "$source": "argv",
+        "index": 3
+      },
+      "x-prompt": "What is the author's email?"
+    },
+    "summary": {
+      "type": "string",
+      "description": "A short summary of the Python library.",
+      "default": "My sample python library",
+      "x-prompt": "What is this Python library about?"
+    }
+  },
+  "required": ["name", "repoNamespace", "authorName", "authorEmail"]
+}

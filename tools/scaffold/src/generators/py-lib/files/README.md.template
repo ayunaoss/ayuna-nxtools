@@ -1,0 +1,3 @@
+# <%= repoNamespaceClass %> <%= projectNameClass %>
+
+<%= summary %>

@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compileOnSave": false,
+  "files": [],
+  "references": [
+    {
+      "path": "./tools/scaffold"
+    },
+    {
+      "path": "./tools/scaffold/src/generators/bufgen/files/ts"
+    }
+  ],
+  "compilerOptions": {}
+}

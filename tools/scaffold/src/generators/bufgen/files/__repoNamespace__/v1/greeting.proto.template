@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package <%= repoNamespace %>.v1;
+
+import "buf/validate/validate.proto";
+import "google/api/annotations.proto";
+
+option go_package = "<%= goModulePath %>/<%= repoNamespace %>/v1;<%= repoNamespace %>v1";
+
+message GreetRequest {
+  string name = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+message GreetResponse {
+  string greeting = 1;
+}
+
+service GreetService {
+  rpc Greet(GreetRequest) returns (GreetResponse) {
+    option (google.api.http) = {
+      post: "/<%= repoNamespace %>.v1.GreetService/Greet"
+      body: "*"
+    };
+  }
+}

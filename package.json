@@ -1,0 +1,41 @@
+{
+  "name": "@ayunaio/nxtools",
+  "description": "Nx tools for monorepo projects using go, python, and typescript",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {},
+  "nx": {
+    "targets": {
+      "workspace-sync": {},
+      "workspace-purge": {}
+    }
+  },
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@bufbuild/buf": "^1.72.0",
+    "@nx/devkit": "^23.2.0",
+    "@nx/jest": "23.2.0",
+    "@nx/js": "23.2.0",
+    "@nx/oxlint": "23.2.0",
+    "@nx/plugin": "23.2.0",
+    "@swc-node/register": "1.11.1",
+    "@swc/cli": "~0.8.1",
+    "@swc/core": "1.15.8",
+    "@swc/helpers": "0.5.18",
+    "@swc/jest": "~0.2.38",
+    "@types/jest": "~30.0.0",
+    "@types/node": "^24.0.0",
+    "jest": "~30.3.0",
+    "jest-environment-node": "~30.3.0",
+    "jest-util": "~30.3.0",
+    "nx": "23.2.0",
+    "oxfmt": "^0.66.0",
+    "oxlint": "^1.75.0",
+    "prettier": "^3.8.1",
+    "ts-jest": "^29.4.7",
+    "ts-node": "10.9.1",
+    "tslib": "^2.3.0",
+    "typescript": "~6.0.3"
+  }
+}

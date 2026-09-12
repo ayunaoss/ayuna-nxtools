@@ -1,0 +1,8 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "title": "Workspace Sync Executor",
+  "description": "Add missing project entries to go.work, pyproject.toml, and pnpm-workspace.yaml",
+  "type": "object",
+  "properties": {},
+  "required": []
+}

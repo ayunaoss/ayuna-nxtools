@@ -1,0 +1,11 @@
+package <%= name %>
+
+import (
+	"fmt"
+
+	_ "<%= modulePrefix %>/bufgen/go/ayuna/v1"
+)
+
+func Hello(name string) string {
+    return fmt.Sprintf("Hello, %s! From go library: <%= name %>", name)
+}

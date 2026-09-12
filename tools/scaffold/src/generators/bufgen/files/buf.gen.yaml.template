@@ -1,0 +1,52 @@
+version: v2
+plugins:
+  ## Go specific plugins
+  - remote: buf.build/protocolbuffers/go:v1.36.12
+    out: ../bufgen/go
+    opt:
+      - paths=source_relative
+  - remote: buf.build/connectrpc/go:v1.20.0
+    out: ../bufgen/go
+    opt:
+      - paths=source_relative
+  ## Python specific plugins
+  - remote: buf.build/protocolbuffers/python:v36.0
+    out: ../bufgen/py
+    include_imports: true
+  - remote: buf.build/protocolbuffers/pyi:v36.0
+    out: ../bufgen/py
+    include_imports: true
+  - remote: buf.build/connectrpc/py:v0.11.1
+    out: ../bufgen/py
+    include_imports: true
+    opt:
+      - protobuf=google
+  ## TypeScript specific plugins
+  - remote: buf.build/bufbuild/es:v2.14.0
+    out: ../bufgen/ts
+    include_imports: true
+    opt:
+      - target=ts
+      - import_extension=js
+  ## JSON Schema specific plugins
+  - remote: buf.build/bufbuild/protoschema-jsonschema:v0.6.0
+    out: ../bufgen/schemas
+  ## OpenAPI v3 Local Plugin
+  - local: protoc-gen-openapi
+    out: ../bufgen/openapi
+    opt:
+      - output_mode=json
+      - naming=json
+      - enum_type=string
+      - default_response=false
+managed:
+  enabled: true
+  override:
+    - file_option: go_package_prefix
+      value: <%= goModPrefix %>/bufgen/go
+  disable:
+    # Do not rewrite package paths for external dependencies
+    - file_option: go_package_prefix
+      module: buf.build/bufbuild/protovalidate
+    - file_option: go_package_prefix
+      module: buf.build/googleapis/googleapis

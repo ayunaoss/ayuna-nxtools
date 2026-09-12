@@ -1,0 +1,24 @@
+{
+  "executors": {
+    "codegen-proto": {
+      "implementation": "./dist/executors/codegen-proto/executor.js",
+      "schema": "./dist/executors/codegen-proto/schema.json",
+      "description": "Generate protobuf clients and synchronize their package dependencies"
+    },
+    "codepurge-proto": {
+      "implementation": "./dist/executors/codepurge-proto/executor.js",
+      "schema": "./dist/executors/codepurge-proto/schema.json",
+      "description": "Remove generated protobuf artifacts that no longer have a source schema"
+    },
+    "workspace-purge": {
+      "implementation": "./dist/executors/workspace-purge/executor.js",
+      "schema": "./dist/executors/workspace-purge/schema.json",
+      "description": "Remove stale project entries from go.work, pyproject.toml, and pnpm-workspace.yaml"
+    },
+    "workspace-sync": {
+      "implementation": "./dist/executors/workspace-sync/executor.js",
+      "schema": "./dist/executors/workspace-sync/schema.json",
+      "description": "Add missing project entries to go.work, pyproject.toml, and pnpm-workspace.yaml"
+    }
+  }
+}
