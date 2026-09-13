@@ -55,6 +55,12 @@
               "input": "./tools/scaffold/src",
               "glob": "**/*.d.ts",
               "output": "."
+            },
+            {
+              "input": "./tools/scaffold/src/skel",
+              "glob": "pyproject.toml",
+              "output": "skel",
+              "includeIgnoredFiles": true
             }
           ]
         }
@@ -75,6 +81,7 @@
     }
   },
   "scripts": {
+    "clean": "rimraf dist ayunaio-scaffold-*.tgz",
     "prepack": "pnpm --dir ../.. exec nx build @ayunaio/scaffold"
   },
   "dependencies": {
@@ -93,5 +100,8 @@
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "rimraf": "^6.1.3"
   }
 }

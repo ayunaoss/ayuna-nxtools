@@ -16,14 +16,15 @@ This provides ready to use Nx generators for
 
 Ensure that you install this plugin inside a Nx generated workspace. Before proceeding, ensure the following steps are followed.
 
-1. First, install **[Nx tool](https://nx.dev/docs/getting-started/installation)** if not already done
-2. Initialize the Nx project
-   1. Create a **[new project workspace](https://nx.dev/docs/getting-started/start-new-project)**, if you are starting from scratch
+1. Install **[nx](https://nx.dev/docs/getting-started/installation)** tool
+2. Install **[pnpm](https://pnpm.io/installation#on-posix-systems)** package manager
+3. Initialize the Nx project
+   1. Create a **[new project workspace](https://nx.dev/docs/getting-started/tutorials/crafting-your-workspace#creating-a-workspace)**, if you are starting from scratch
    2. Turn your **[existing monorepo](https://nx.dev/docs/getting-started/start-with-existing-project)** into Nx workspace project otherwise
-3. Install the Nx plugin package in the monorepo root, using
+4. Install the Nx plugin package in the monorepo root, using
 
     ``` bash
-    nx add @nx/plugin
+    pnpm nx add @nx/plugin
     ```
 
 Then, install the `@ayunaio/scaffold` package using one of the following ways. The package needs to be installed under the monorepo root.
