@@ -1,0 +1,101 @@
+[build-system]
+requires = ["hatchling>=1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "<%= repoNamespace %>-bufgen"
+version = "0.1.0"
+description = "The buf.build generated python bindings for <%= repoNamespace %>-bufgen project."
+readme = "README.md"
+requires-python = ">=3.12,<3.14"
+license-files = ["LICENSE"]
+authors = [{ name = "<%= authorName %>", email = "<%= authorEmail %>" }]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+keywords = ["<%= repoNamespace %>", "protobuf", "python"]
+dependencies = [
+    "connectrpc>=0.11.1",
+    "protobuf>=7.36.0",
+    "protovalidate>=1.2.0",
+    "zstandard>=0.23.0",
+]
+[dependency-groups]
+dev = [
+    "pylint>=3.2.6,<4.0.0",
+    "pyright>=1.1.376,<2.0.0",
+    "ruff>=0.8.3,<1.0.0",
+    "types-protobuf>=7.35.1.20260821",
+]
+test = ["pytest>=9.0.2", "pytest-asyncio>=1.3.0", "pytest-dependency>=0.6.1"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["<%= repoNamespace %>", "buf", "google"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "<%= repoNamespace %>",
+    "buf",
+    "google",
+    "README.md",
+    "LICENSE",
+    "pyproject.toml",
+]
+exclude = ["tests", "pytest.ini", "uv.lock"]
+
+[tool.pyright]
+include = ["<%= repoNamespace %>"]
+exclude = ["**/.*", ".venv", "**/buf", "**/node_modules", "**/__pycache__"]
+reportAttributeAccessIssue = false
+
+[tool.pylint."messages control"]
+disable = "all"
+enable = [
+    "empty-docstring",
+    "missing-module-docstring",
+    "missing-class-docstring",
+    "missing-function-docstring",
+]
+ignore = ["setup.py", "__init__.py"]
+ignore-paths = ["tests"]
+
+[tool.ruff]
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+]
+
+# Same as Black.
+line-length = 88
+indent-width = 4
+
+# Assume Python 3.12
+target-version = "py312"
