@@ -1,5 +1,5 @@
 {
-  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/23.2.0/packages/nx/schemas/nx-schema.json",
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "production": [
@@ -42,6 +42,9 @@
   ],
   "neverConnectToCloud": true,
   "analytics": false,
+  "release": {
+    "projects": ["@ayunaio/scaffold"]
+  },
   "targetDefaults": {
     "@nx/js:tsc": {
       "cache": true,

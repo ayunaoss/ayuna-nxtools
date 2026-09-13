@@ -3,6 +3,22 @@
   "description": "Nx plugin with generators for go, py and ts projects",
   "version": "0.1.0",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ayunaoss/ayuna-nxtools.git",
+    "directory": "tools/scaffold"
+  },
+  "bugs": {
+    "url": "https://github.com/ayunaoss/ayuna-nxtools/issues"
+  },
+  "homepage": "https://github.com/ayunaoss/ayuna-nxtools/tree/main/tools/scaffold#readme",
+  "keywords": [
+    "nx-plugin",
+    "scaffolding",
+    "golang",
+    "python",
+    "typescript"
+  ],
   "private": false,
   "type": "module",
   "main": "./dist/index.js",
@@ -49,8 +65,17 @@
             "NODE_OPTIONS": "--experimental-vm-modules"
           }
         }
+      },
+      "nx-release-publish": {
+        "executor": "@nx/js:release-publish",
+        "dependsOn": [
+          "build"
+        ]
       }
     }
+  },
+  "scripts": {
+    "prepack": "pnpm --dir ../.. exec nx build @ayunaio/scaffold"
   },
   "dependencies": {
     "@nx/devkit": "23.2.0",
@@ -65,5 +90,8 @@
     "!**/*.tsbuildinfo",
     "generators.json",
     "executors.json"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }

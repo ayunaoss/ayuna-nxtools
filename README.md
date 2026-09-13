@@ -8,15 +8,36 @@ This tool is created as a nx plugin to provide generators for golang (*go.mod ba
 
 **Please refer to [ayunaio-scaffold](tools/scaffold/README.md) documentation for details of installing and using the tool**.
 
-The following commands in this section are only for local development of the tool. Install [pnpm](https://pnpm.io/installation#on-posix-systems) and [Nx tool](https://nx.dev/docs/getting-started/installation) tool, if not already done. Then, run
+### Local development
+
+The following commands in this section are only for local development of the tool. Install **[pnpm](https://pnpm.io/installation#on-posix-systems)** and **[Nx tool](https://nx.dev/docs/getting-started/installation)** tool, if not already done. Then, run the following commands from ayuna-nxtools project root.
 
 ```bash
 # Install nx dependencies
 pnpm clean && pnpm install
 
-# Build the scaffold plugin containing generators for local dev / testing
+# Build the scaffold plugin containing generators
+# for local development / testing
 pnpm nx build scaffold
 ```
+
+### Publishing
+
+Maintainers must be authenticated to npm with permission to publish the public `@ayunaio/scaffold` package. The commands need to be run from `tools/scaffold` folder.
+
+Preview the release before publishing:
+
+```bash
+pnpm nx release --dry-run
+```
+
+Use the following command for the first npm publication only; it permits publishing when no previous registry version exists:
+
+```bash
+pnpm nx release --first-release
+```
+
+Use `pnpm nx release` for subsequent releases. The release target builds the plugin before publishing with public npm access.
 
 ## General usage of nx
 
@@ -47,16 +68,6 @@ Follow sections provide general overview of using nx.
 
     [More about running tasks in the docs &raquo;](https://nx.dev/docs/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 
-* **To version and release the library use**
-
-    ```bash:
-    npx nx release
-    ```
-
-    Pass `--dry-run` to see what would happen without actually releasing the library.
-
-    [Learn more about Nx release &raquo;](https://nx.dev/docs/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
 * **To keep TypeScript project references up to date**
 
     Nx automatically updates TypeScript [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) in `tsconfig.json` files to ensure they remain accurate based on your project dependencies (`import` or `require` statements). This sync is automatically done when running tasks such as `build` or `typecheck`, which require updated references to function correctly.
@@ -64,13 +75,13 @@ Follow sections provide general overview of using nx.
     To manually trigger the process to sync the project graph dependencies information to the TypeScript project references, run the following command:
 
     ```sh
-    npx nx sync
+    pnpm nx sync
     ```
 
     You can enforce that the TypeScript project references are always in the correct state when running in CI by adding a step to your CI job configuration that runs the following command:
 
     ```sh
-    npx nx sync:check
+    pnpm nx sync:check
     ```
 
     [Learn more about nx sync](https://nx.dev/reference/nx-commands#sync)
@@ -82,7 +93,7 @@ Follow sections provide general overview of using nx.
 Use the following command to configure a CI workflow for your workspace:
 
 ```sh
-npx nx g ci-workflow
+pnpm nx g ci-workflow
 ```
 
 [Learn more about Nx on CI](https://nx.dev/docs/features/ci-features?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
