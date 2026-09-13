@@ -39,6 +39,15 @@ pnpm nx release --first-release
 
 Use `pnpm nx release` for subsequent releases. The release target builds the plugin before publishing with public npm access.
 
+> **NOTE**: Latest npm publishing procedure highly recommends using stage-only tokens. So direct `npm publish` might not work. Hence, it is recommended to the following.
+
+```bash
+cd tools/scaffold
+npm stage publish --access public
+npm stage list @ayunaio/scaffold
+npm stage approve <stage-id>
+```
+
 ## General usage of nx
 
 Follow sections provide general overview of using nx.
