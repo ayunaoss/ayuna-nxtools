@@ -1,6 +1,6 @@
 # AyunaIO Scaffold
 
-The [Nx](https://nx.dev) generators plugin providing scaffolding for golang, typescript and python projects to work together inside a monorepo.
+The **[Nx](https://nx.dev)** generators plugin providing scaffolding for golang, typescript and python projects to work together inside a monorepo.
 
 This provides ready to use Nx generators for
 
@@ -34,11 +34,11 @@ Then, install the `@ayunaio/scaffold` package using one of the following ways. T
 Use one of the following commands based on the package manager that you use in your project. Using **[pnpm](https://pnpm.io/installation)** is recommended in general since, this plugin mainly uses `pnpm` as the package manager for all the TypeScript projects that it generates.
 
 ```bash
-## Using npm
-npm install -D @ayunaio/scaffold --workspace=root
-
-## Using pnpm
+## Install scaffold tool
 pnpm add -D @ayunaio/scaffold -w
+
+## Install buf tool
+pnpm add -D @bufbuild/buf -w
 ```
 
 ### Using source code
@@ -64,6 +64,9 @@ cd ~/Projects/my-monorepo
 
 ## Use proper version string for <version> placeholder in the above command. It depends on the version of ayunaio-scaffold project being built.
 pnpm add -D ~/Projects/ayuna-nxtools/tools/scaffold/ayunaio-scaffold-<version>.tgz -w
+
+## Install buf tool
+pnpm add -D @bufbuild/buf -w
 ```
 
 ## Additional settings needed
