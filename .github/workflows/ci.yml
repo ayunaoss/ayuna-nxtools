@@ -16,15 +16,19 @@ jobs:
           filter: tree:0
           fetch-depth: 0
 
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12.3.4
+
       - uses: actions/setup-node@v5
         with:
           node-version: 24
-          cache: "npm"
+          cache: "pnpm"
 
-      - run: npm ci
+      - run: pnpm install --frozen-lockfile
 
-      - run: npx nx format:check --base="remotes/origin/main"
-      - run: npx nx run-many -t lint test build typecheck e2e
+      - run: pnpm nx format:check --base="remotes/origin/main"
+      - run: pnpm nx run-many -t lint test build typecheck e2e
 
   publish-scaffold:
     runs-on: ubuntu-latest
@@ -35,16 +39,20 @@ jobs:
           filter: tree:0
           fetch-depth: 0
 
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12.3.4
+
       - uses: actions/setup-node@v5
         with:
           node-version: 24
-          cache: "npm"
+          cache: "pnpm"
           registry-url: "https://registry.npmjs.org"
 
-      - run: npm ci
+      - run: pnpm install --frozen-lockfile
 
-      - run: npx nx build @ayunaio/scaffold
+      - run: pnpm nx build @ayunaio/scaffold
 
-      - run: npx nx release publish --projects=@ayunaio/scaffold --tag=stage
+      - run: pnpm nx release publish --projects=@ayunaio/scaffold --tag=stage
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
