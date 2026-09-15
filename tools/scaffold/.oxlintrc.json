@@ -1,4 +1,5 @@
 {
   "extends": ["../../.oxlintrc.json"],
-  "plugins": ["jest"]
+  "plugins": ["jest"],
+  "ignorePatterns": ["src/generators/**/files/**"]
 }
