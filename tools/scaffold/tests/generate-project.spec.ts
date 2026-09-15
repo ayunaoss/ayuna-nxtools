@@ -1,16 +1,13 @@
-import {
-  readProjectConfiguration,
-  type Tree,
-} from '@nx/devkit';
+import { readProjectConfiguration, type Tree } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 
-import { initBufgenGenerator } from './generators/bufgen/bufgen.js';
-import { goAppGenerator } from './generators/go-app/go-app.js';
-import { goLibGenerator } from './generators/go-lib/go-lib.js';
-import { pyAppGenerator } from './generators/py-app/py-app.js';
-import { pyLibGenerator } from './generators/py-lib/py-lib.js';
-import { tsAppGenerator } from './generators/ts-app/ts-app.js';
-import { tsLibGenerator } from './generators/ts-lib/ts-lib.js';
+import { initBufgenGenerator } from '../src/generators/bufgen/bufgen.js';
+import { goAppGenerator } from '../src/generators/go-app/go-app.js';
+import { goLibGenerator } from '../src/generators/go-lib/go-lib.js';
+import { pyAppGenerator } from '../src/generators/py-app/py-app.js';
+import { pyLibGenerator } from '../src/generators/py-lib/py-lib.js';
+import { tsAppGenerator } from '../src/generators/ts-app/ts-app.js';
+import { tsLibGenerator } from '../src/generators/ts-lib/ts-lib.js';
 
 describe('Generate a project', () => {
   let tree: Tree;
@@ -19,7 +16,10 @@ describe('Generate a project', () => {
     tree = createTreeWithEmptyWorkspace();
     tree.write(
       'package.json',
-      JSON.stringify({ name: '@acme/workspace', description: 'Test workspace' }),
+      JSON.stringify({
+        name: '@acme/workspace',
+        description: 'Test workspace',
+      }),
     );
     tree.write('pnpm-workspace.yaml', 'packages: []\n');
   });
@@ -64,8 +64,9 @@ describe('Generate a project', () => {
       authorEmail: 'test@example.com',
     });
 
-    expect(readProjectConfiguration(tree, 'acme-bufgen').targets?.codegen)
-      .toMatchObject({ executor: '@ayunaio/scaffold:codegen-proto' });
+    expect(
+      readProjectConfiguration(tree, 'acme-bufgen').targets?.codegen,
+    ).toMatchObject({ executor: '@ayunaio/scaffold:codegen-proto' });
     expect(readProjectConfiguration(tree, 'go-library')).toMatchObject({
       root: 'libs/go/go-library',
       projectType: 'library',
