@@ -1,3 +1,13 @@
+## 0.1.2 (2026-09-15)
+
+### 🩹 Fixes
+
+- Updated github actions to stop auto triggering ([48c7f18](https://github.com/ayunaoss/ayuna-nxtools/commit/48c7f18))
+
+### ❤️ Thank You
+
+- Ayuna OSS
+
 ## 0.1.1 (2026-09-13)
 
 ### 🩹 Fixes
