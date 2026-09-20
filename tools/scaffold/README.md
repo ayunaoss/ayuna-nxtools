@@ -1,8 +1,23 @@
-# AyunaIO Scaffold
+# @ayunaio/scaffold
 
-The **[Nx](https://nx.dev)** generators plugin providing scaffolding for golang, typescript and python projects to work together inside a monorepo.
+[![npm version](https://img.shields.io/npm/v/@ayunaio/scaffold.svg?style=flat-square)](https://www.npmjs.com/package/@ayunaio/scaffold)
+[![npm downloads](https://img.shields.io/npm/dm/@ayunaio/scaffold.svg?style=flat-square)](https://www.npmjs.com/package/@ayunaio/scaffold)
+[![GitHub license](https://img.shields.io/github/license/ayunaoss/ayuna-nxtools.svg?style=flat-square)](LICENSE)
 
-This provides ready to use Nx generators for
+> Multi-language scaffolding generators and workspace management executors for [Nx](https://nx.dev) monorepos. Part of the [ayuna-nxtools](https://github.com/ayunaoss/ayuna-nxtools) suite.
+
+---
+
+## Supported Stacks
+
+`@ayunaio/scaffold` provides opinionated **[nx](https://nx.dev)** project generators for:
+
+* **Buf:** Protobuf based code generation using **[buf](https://buf.build)**
+* **Golang:** `go.mod` based setup targeting Go 1.27+
+* **Python:** `uv` based dependency and environment management targeting Python 3.12+
+* **TypeScript:** `pnpm` based configuration targeting Node.js 24+ (LTS)
+
+The provided generators are;
 
 * **bufgen**: Codegen using **[buf](https://buf.build)** and protobuf definitions
 * **go-lib**: Golang library project using `go 1.27`
@@ -12,9 +27,14 @@ This provides ready to use Nx generators for
 * **ts-lib**: TypeScript library project using `pnpm` with `nodejs 24.x`
 * **ts-app**: TypeScript application project using `pnpm` with `nodejs 24.x`
 
+The provided executors are;
+
+* **workspace-sync**: Synchronize the workspace state
+* **workspace-purge**: Purge the workspace state
+
 ## Installation
 
-**@ayunaio/scaffold** is intended to be installed inside a nx workspace project.
+**@ayunaio/scaffold** is intended to be installed inside an **[nx](https://nx.dev)** workspace project.
 
 ### Prerequisites
 
