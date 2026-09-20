@@ -12,28 +12,26 @@ This provides ready to use Nx generators for
 * **ts-lib**: TypeScript library project using `pnpm` with `nodejs 24.x`
 * **ts-app**: TypeScript application project using `pnpm` with `nodejs 24.x`
 
-## How to install
+## Installation
 
-Ensure that you install this plugin inside a Nx generated workspace. Before proceeding, ensure the following steps are followed.
+**@ayunaio/scaffold** is intended to be installed inside a nx workspace project.
+
+### Prerequisites
+
+Complete the following steps before proceeding with the plugin installation.
 
 1. Install **[nx](https://nx.dev/docs/getting-started/installation)** tool
 2. Install **[pnpm](https://pnpm.io/installation#on-posix-systems)** package manager
-3. Initialize the Nx project
+3. Initialize the Nx workspace
    1. Create a **[new project workspace](https://nx.dev/docs/getting-started/tutorials/crafting-your-workspace#creating-a-workspace)**, if you are starting from scratch
    2. Turn your **[existing monorepo](https://nx.dev/docs/getting-started/start-with-existing-project)** into Nx workspace project otherwise
-4. Install the Nx plugin package in the monorepo root, using
 
-    ``` bash
-    pnpm nx add @nx/plugin
-    ```
-
-Then, install the `@ayunaio/scaffold` package using one of the following ways. The package needs to be installed under the monorepo root.
-
-### Using package manager
-
-Use one of the following commands based on the package manager that you use in your project. Using **[pnpm](https://pnpm.io/installation)** is recommended in general since, this plugin mainly uses `pnpm` as the package manager for all the TypeScript projects that it generates.
+### Install plugin with workspace dependencies
 
 ```bash
+## Install nx plugin package in the monorepo root
+pnpm nx add @nx/plugin
+
 ## Install scaffold tool
 pnpm add -D @ayunaio/scaffold -w
 
@@ -41,37 +39,9 @@ pnpm add -D @ayunaio/scaffold -w
 pnpm add -D @bufbuild/buf -w
 ```
 
-### Using source code
+### Add plugin provided executors
 
-Use the following steps to prepare the npm package and install it locally.
-
-```bash
-##  First clone the complete ayuna-nxtools project repo locally.
-git clone https://github.com/ayunaoss/ayuna-nxtools.git
-
-## Install dependencies from monorepo root
-pnpm install
-
-## Inside tools/scaffold folder, run
-npm pack
-```
-
-Assuming that you have cloned ayuna-nxtools at `~/Projects/ayuna-nxtools` and your workspace project is at `~/Projects/my-monorepo`, you can install the built npm package using
-
-```bash
-## Enter your monorepo
-cd ~/Projects/my-monorepo
-
-## Use proper version string for <version> placeholder in the above command. It depends on the version of ayunaio-scaffold project being built.
-pnpm add -D ~/Projects/ayuna-nxtools/tools/scaffold/ayunaio-scaffold-<version>.tgz -w
-
-## Install buf tool
-pnpm add -D @bufbuild/buf -w
-```
-
-## Additional settings needed
-
-Add the following entries to the `nx.json` file in the monorepo root.
+Ensure that the `nx.json` files under the monorepo root contains the following entries.
 
 ```json
 "targetDefaults": {
@@ -86,7 +56,7 @@ Add the following entries to the `nx.json` file in the monorepo root.
 }
 ```
 
-Add the following entry to the `package.json` file in the monorepo root.
+Ensure that the `package.json` file in the monorepo root contains the following entries.
 
 ```json
 "nx": {
@@ -97,7 +67,7 @@ Add the following entry to the `package.json` file in the monorepo root.
 }
 ```
 
-Finally, run the following commands to update the nx workspace with the `scaffold` installation for your monorepo.
+Finally, run the following commands to update the nx workspace for your monorepo.
 
 ```bash
 pnpm nx affected -t build
@@ -106,66 +76,79 @@ pnpm nx sync
 
 ## Generate a project
 
-> **NOTE**: All the commands given below, should be run from the monorepo root, unless stated otherwise.
+All the commands given below, should be run from the monorepo root, unless stated otherwise.
 
 ### Initialize the protobuf and codegen folder structures
 
 ```bash
-# Initialize the bufgen structure - buf.build and protobuf definitions
+# Initialize the bufgen structure - buf.build configurations.
+# This creates 'bufgen' folder in the monorepo root and adds
+# buf.yaml, buf.gen.yaml and namespace folder to add .proto files.
 pnpm nx g @ayunaio/scaffold:bufgen
 
 # Generate code from .proto definitions (For e.g., bufgen/ayuna/v1/greeting.proto)
 # Ensure that you add the required .proto files before running this.
+# This adds generated protobuf code for golang, python and typescript under
+# bufgen/go, bufgen/py and bufgen/ts folders respectively.
 pnpm nx run ayuna-bufgen:codegen
 
-# Update the root-level go/py/ts config files
+# Update the root-level go.work, pnpm-workspace.yaml and pyproject.toml
+# to ensure bufgen/go, bufgen/py and bufgen/ts workspace entries are
+# registered.
 pnpm nx workspace-sync
 ```
 
 ### Generate libraries or applications as needed
 
 ```bash
-# Generate a Go library
+# To generate a Go library and register it
+# in root-level go.work file
 pnpm nx g @ayunaio/scaffold:go-lib
 
-# Generate a Go application
+# To generate a Go application and register it
+# in the root-level go.work file
 pnpm nx g @ayunaio/scaffold:go-app
 
-# Generate a Python library
+# To generate a Python library and register it
+# in the root-level pyproject.toml file
 pnpm nx g @ayunaio/scaffold:py-lib
 
-# Generate a Python application
+# To generate a Python application and register it
+# in the root-level pyproject.toml file
 pnpm nx g @ayunaio/scaffold:py-app
 
-# Generate a TypeScript library
+# To generate a TypeScript library and register it
+# in the root-level pnpm-workspace.yaml file
 pnpm nx g @ayunaio/scaffold:ts-lib
 
-# Generate a TypeScript application
+# To generate a TypeScript application and register it
+# in the root-level pnpm-workspace.yaml file
 pnpm nx g @ayunaio/scaffold:ts-app
 ```
 
-## Sync workspace settings
+## Sync workspace entries
 
-In order to ensure all generated (using *pnpm nx g @ayunaio/scaffold:...*), workspace projects have their entries updated in one of the root-level go.work, pyproject.toml or pnpm-workspace.yaml, you can run
+In order to ensure all generated (using *pnpm nx g @ayunaio/scaffold:...*), workspace projects have their entries updated in the root-level go.work, pyproject.toml or pnpm-workspace.yaml, you can run the following idempotent command.
 
 ```bash
-# Update the root-level go/py/ts config files
 pnpm nx workspace-sync
 ```
 
-## Cleanup generated code
+## Cleanup generated stale code
 
-Run the following command to clean the code generated by stale .proto definitions which might have been removed or renamed.
+Run the following commands to clean the code generated by stale .proto definitions which might have been removed or renamed and regenerate the updated code again. The commands are idempotent.
 
 ```bash
+# First, purge the generated stale code
 pnpm nx run ayuna-bufgen:codepurge
+
+# Then, regenerate the updated code
+pnpm nx run ayuna-bufgen:codegen
 ```
 
-> **NOTE**:  After running the codepurge, refresh the protobuf generated code using codegen (*pnpm nx run ayuna-bufgen:codegen*)
+## Cleanup stale workspace entries
 
-## Cleanup stale projects
-
-In case you have manually deleted any of the projects, run the following command to update the the root-level go/py/ts configuration files.
+In case you have manually deleted any of the generated projects, run the following command to update the the root-level go.work, pnpm-workspace.yaml and pyproject.toml files. This command is idempotent.
 
 ```bash
 pnpm nx workspace-purge
