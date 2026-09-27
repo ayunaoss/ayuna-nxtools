@@ -1,3 +1,13 @@
+## 0.1.4 (2026-09-27)
+
+### 🩹 Fixes
+
+- Removed hardcoded author info from pyproject.toml skeleton ([850ec7e](https://github.com/ayunaoss/ayuna-nxtools/commit/850ec7e))
+
+### ❤️ Thank You
+
+- Ayuna OSS
+
 ## 0.1.3 (2026-09-20)
 
 Updated README for SEO.
