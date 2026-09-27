@@ -49,7 +49,8 @@
             {
               "input": "./tools/scaffold/src",
               "glob": "**/!(*.ts)",
-              "output": "."
+              "output": ".",
+              "includeIgnoredFiles": true
             },
             {
               "input": "./tools/scaffold/src",
