@@ -7,6 +7,7 @@ import { GoLibGeneratorSchema } from './schema.js';
 describe('go-lib generator', () => {
   let tree: Tree;
   const options: GoLibGeneratorSchema = {
+    repoNamespace: 'acme',
     name: 'test',
     modulePrefix: 'github.com/org/source',
   };

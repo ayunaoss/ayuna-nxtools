@@ -32,10 +32,12 @@ describe('Generate a project', () => {
       license: 'MIT',
     });
     await goLibGenerator(tree, {
+      repoNamespace: 'acme',
       name: 'go-library',
       modulePrefix: 'github.com/acme/workspace',
     });
     await goAppGenerator(tree, {
+      repoNamespace: 'acme',
       name: 'go-app',
       modulePrefix: 'github.com/acme/workspace',
     });
