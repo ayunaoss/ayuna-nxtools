@@ -1,3 +1,14 @@
+## 0.1.6 (2026-09-27)
+
+### 🩹 Fixes
+
+- Fixed hardcoded namespace in golang bufgen import for go-app generator ([241ac68](https://github.com/ayunaoss/ayuna-nxtools/commit/241ac68))
+- Updated golangci.yml template for go-lib and go-app ([de12a21](https://github.com/ayunaoss/ayuna-nxtools/commit/de12a21))
+
+### ❤️ Thank You
+
+- Ayuna OSS
+
 ## 0.1.5 (2026-09-27)
 
 ### 🩹 Fixes
