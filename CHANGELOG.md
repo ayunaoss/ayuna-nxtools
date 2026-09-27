@@ -1,3 +1,14 @@
+## 0.1.5 (2026-09-27)
+
+### 🩹 Fixes
+
+- Added missing template files folder for generators ([758b6f2](https://github.com/ayunaoss/ayuna-nxtools/commit/758b6f2))
+- Updated README to use namespace based command for nx ([f97df5b](https://github.com/ayunaoss/ayuna-nxtools/commit/f97df5b))
+
+### ❤️ Thank You
+
+- Ayuna OSS
+
 ## 0.1.4 (2026-09-27)
 
 ### 🩹 Fixes
