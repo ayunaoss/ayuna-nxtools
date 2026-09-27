@@ -17,6 +17,7 @@ export async function goLibGenerator(
   options: GoLibGeneratorSchema,
 ) {
   const resolvedNames = names(options.name);
+  const resolvedNs = names(options.repoNamespace);
   const projectRoot = `libs/go/${resolvedNames.fileName}`;
 
   // Construct the module path for the Go library
@@ -53,6 +54,7 @@ export async function goLibGenerator(
   });
 
   generateFiles(tree, join(generatorDirectory, 'files'), projectRoot, {
+    repoNamespace: resolvedNs.fileName,
     name: resolvedNames.fileName,
     modulePrefix: prefix,
     modulePath,

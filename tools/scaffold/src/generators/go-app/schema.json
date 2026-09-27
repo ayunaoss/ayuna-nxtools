@@ -4,12 +4,21 @@
   "title": "Go Application Generator",
   "type": "object",
   "properties": {
+    "repoNamespace": {
+      "type": "string",
+      "description": "The namespace of the repository.",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What is the repository namespace?"
+    },
     "name": {
       "type": "string",
       "description": "The name of the Go application",
       "$default": {
         "$source": "argv",
-        "index": 0
+        "index": 1
       },
       "x-prompt": "What is the application name would you like to use?"
     },
@@ -20,5 +29,5 @@
       "x-prompt": "What is the module prefix for the Go application?"
     }
   },
-  "required": ["name"]
+  "required": ["repoNamespace", "name"]
 }

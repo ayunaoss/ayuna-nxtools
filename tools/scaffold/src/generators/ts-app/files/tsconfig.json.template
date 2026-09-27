@@ -9,6 +9,7 @@
     "verbatimModuleSyntax": false,
     "noUncheckedIndexedAccess": false,
     "declaration": false,
+    "declarationMap": false,
     "sourceMap": true,
     "composite": false,
     "outDir": "dist",

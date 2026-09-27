@@ -1,6 +1,6 @@
 export interface PyLibGeneratorSchema {
-  name: string;
   repoNamespace: string;
+  name: string;
   authorName: string;
   authorEmail: string;
   summary?: string;
