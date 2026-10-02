@@ -82,7 +82,7 @@
     }
   },
   "scripts": {
-    "clean": "rimraf dist ayunaio-scaffold-*.tgz",
+    "clean": "rimraf dist ayunaio-scaffold-*.tgz node_modules",
     "prepack": "pnpm --dir ../.. exec nx build @ayunaio/scaffold"
   },
   "dependencies": {
