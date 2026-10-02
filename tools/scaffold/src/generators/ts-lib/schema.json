@@ -4,23 +4,23 @@
   "title": "TypeScript Library Generator",
   "type": "object",
   "properties": {
-    "name": {
-      "type": "string",
-      "description": "The name of the TypeScript library",
-      "$default": {
-        "$source": "argv",
-        "index": 0
-      },
-      "x-prompt": "What is the TypeScript library name would you like to use?"
-    },
     "repoNamespace": {
       "type": "string",
       "description": "The namespace of the repository.",
       "$default": {
         "$source": "argv",
-        "index": 1
+        "index": 0
       },
       "x-prompt": "What is the repository namespace?"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the TypeScript library",
+      "$default": {
+        "$source": "argv",
+        "index": 1
+      },
+      "x-prompt": "What is the TypeScript library name would you like to use?"
     },
     "authorName": {
       "type": "string",
@@ -48,5 +48,5 @@
       "x-prompt": "What is this TypeScript library about?"
     }
   },
-  "required": ["name", "repoNamespace", "authorName", "authorEmail"]
+  "required": ["repoNamespace", "name", "authorName", "authorEmail"]
 }
