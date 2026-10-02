@@ -1,21 +1,12 @@
-import {
-  addProjectConfiguration,
-  formatFiles,
-  generateFiles,
-  names,
-  type Tree,
-} from '@nx/devkit';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import type { GoLibGeneratorSchema } from './schema.js';
+import { addProjectConfiguration, formatFiles, generateFiles, names, type Tree } from '@nx/devkit';
 import { updateGoWork } from '../../utils.js';
+import type { GoLibGeneratorSchema } from './schema.js';
 
 const generatorDirectory = dirname(fileURLToPath(import.meta.url));
 
-export async function goLibGenerator(
-  tree: Tree,
-  options: GoLibGeneratorSchema,
-) {
+export async function goLibGenerator(tree: Tree, options: GoLibGeneratorSchema) {
   const resolvedNames = names(options.name);
   const resolvedNs = names(options.repoNamespace);
   const projectRoot = `libs/go/${resolvedNames.fileName}`;

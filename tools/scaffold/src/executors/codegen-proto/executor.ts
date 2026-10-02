@@ -1,5 +1,5 @@
-import type { ExecutorContext } from '@nx/devkit';
 import { join } from 'node:path';
+import type { ExecutorContext } from '@nx/devkit';
 import { codegenProto } from '../../utils.js';
 
 export default async function codegenProtoExecutor(

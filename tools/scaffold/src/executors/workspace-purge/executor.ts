@@ -1,10 +1,5 @@
 import type { ExecutorContext } from '@nx/devkit';
-import {
-  purgeGoWork,
-  purgePyProjectToml,
-  purgePnpmWorkspace,
-  syncRoot,
-} from '../../utils.js';
+import { purgeGoWork, purgePnpmWorkspace, purgePyProjectToml, syncRoot } from '../../utils.js';
 
 export default async function workspacePurgeExecutor(
   _options: Record<string, never>,

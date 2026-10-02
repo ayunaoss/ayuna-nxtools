@@ -1,21 +1,12 @@
-import {
-  addProjectConfiguration,
-  formatFiles,
-  generateFiles,
-  names,
-  type Tree,
-} from '@nx/devkit';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import type { PyLibGeneratorSchema } from './schema.js';
+import { addProjectConfiguration, formatFiles, generateFiles, names, type Tree } from '@nx/devkit';
 import { updateRootPyProjectToml } from '../../utils.js';
+import type { PyLibGeneratorSchema } from './schema.js';
 
 const generatorDirectory = dirname(fileURLToPath(import.meta.url));
 
-export async function pyLibGenerator(
-  tree: Tree,
-  options: PyLibGeneratorSchema,
-) {
+export async function pyLibGenerator(tree: Tree, options: PyLibGeneratorSchema) {
   const resolvedNames = names(options.name);
   const resolvedNs = names(options.repoNamespace);
 

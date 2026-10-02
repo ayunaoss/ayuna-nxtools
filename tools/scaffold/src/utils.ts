@@ -1,16 +1,10 @@
-import {
-  existsSync,
-  readdirSync,
-  readFileSync,
-  unlinkSync,
-  writeFileSync,
-} from 'node:fs';
-import { basename, dirname, join } from 'node:path';
 import { execSync } from 'node:child_process';
-import { load, dump } from 'js-toml';
-import { parseDocument, YAMLSeq } from 'yaml';
-import type { Tree } from '@nx/devkit';
+import { existsSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
+import { basename, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import type { Tree } from '@nx/devkit';
+import { dump, load } from 'js-toml';
+import { parseDocument, YAMLSeq } from 'yaml';
 
 // ===== Constants =====
 
@@ -64,10 +58,7 @@ function purgeFilesInDir(
   for (const filePath of filesIn(dir)) {
     const name = basename(filePath);
 
-    if (
-      suffixes.some((s) => name.endsWith(s)) &&
-      (shouldDelete ? shouldDelete(name) : true)
-    ) {
+    if (suffixes.some((s) => name.endsWith(s)) && (shouldDelete ? shouldDelete(name) : true)) {
       unlinkSync(filePath);
     }
   }
@@ -101,8 +92,8 @@ function serializeGoWork(content: string, entries: string[]): string {
     .replace(/\n{3,}/g, '\n\n')
     .trimEnd();
 
-  if (entries.length === 0) return cleaned + '\n';
-  return cleaned + `\n\nuse (\n${entries.map((e) => `\t${e}`).join('\n')}\n)\n`;
+  if (entries.length === 0) return `${cleaned}\n`;
+  return `${cleaned}\n\nuse (\n${entries.map((e) => `\t${e}`).join('\n')}\n)\n`;
 }
 
 // --- pyproject.toml helpers ---
@@ -116,24 +107,22 @@ interface PyUvWorkspaceData extends PyUvData {
   parsed: Record<string, unknown>;
 }
 
-function getPyUvWorkspaceData(
-  parsed: Record<string, unknown>,
-): PyUvData | null {
-  const uv = (parsed['tool'] as Record<string, unknown> | undefined)?.['uv'] as
-    Record<string, unknown> | undefined;
+function getPyUvWorkspaceData(parsed: Record<string, unknown>): PyUvData | null {
+  const uv = (parsed.tool as Record<string, unknown> | undefined)?.uv as
+    | Record<string, unknown>
+    | undefined;
 
   if (!uv) return null;
 
-  const workspace = uv['workspace'] as Record<string, unknown> | undefined;
+  const workspace = uv.workspace as Record<string, unknown> | undefined;
   if (!workspace) return null;
 
-  if (!Array.isArray(workspace['members'])) workspace['members'] = [];
-  const members = workspace['members'] as string[];
+  if (!Array.isArray(workspace.members)) workspace.members = [];
+  const members = workspace.members as string[];
 
-  if (typeof uv['sources'] !== 'object' || uv['sources'] === null)
-    uv['sources'] = {};
+  if (typeof uv.sources !== 'object' || uv.sources === null) uv.sources = {};
 
-  const sources = uv['sources'] as Record<string, unknown>;
+  const sources = uv.sources as Record<string, unknown>;
 
   return { members, sources };
 }
@@ -144,19 +133,14 @@ function readPyUvWorkspace(root: string): PyUvWorkspaceData | null {
   const data = getPyUvWorkspaceData(parsed);
 
   if (!data) {
-    console.log(
-      'No [tool.uv.workspace] section found in pyproject.toml, skipping.',
-    );
+    console.log('No [tool.uv.workspace] section found in pyproject.toml, skipping.');
     return null;
   }
 
   return { parsed, ...data };
 }
 
-function writePyProjectToml(
-  root: string,
-  parsed: Record<string, unknown>,
-): void {
+function writePyProjectToml(root: string, parsed: Record<string, unknown>): void {
   writeFileSync(join(root, 'pyproject.toml'), dump(parsed));
 }
 
@@ -166,13 +150,9 @@ function readPyProjectName(projectAbsPath: string): string | null {
   if (!existsSync(tomlPath)) return null;
 
   try {
-    const parsed = load(readFileSync(tomlPath, 'utf-8')) as Record<
-      string,
-      unknown
-    >;
+    const parsed = load(readFileSync(tomlPath, 'utf-8')) as Record<string, unknown>;
     return (
-      ((parsed['project'] as Record<string, unknown> | undefined)?.['name'] as
-        string | undefined) ?? null
+      ((parsed.project as Record<string, unknown> | undefined)?.name as string | undefined) ?? null
     );
   } catch {
     return null;
@@ -225,20 +205,14 @@ function discoverProjects(
     if (!existsSync(scanAbsPath)) continue;
 
     for (const entry of readdirSync(scanAbsPath, { withFileTypes: true })) {
-      if (
-        entry.isDirectory() &&
-        existsSync(join(scanAbsPath, entry.name, marker))
-      ) {
+      if (entry.isDirectory() && existsSync(join(scanAbsPath, entry.name, marker))) {
         found.push(join(scanDir, entry.name));
       }
     }
   }
 
   for (const directPath of directPaths) {
-    if (
-      existsSync(join(root, directPath)) &&
-      existsSync(join(root, directPath, marker))
-    ) {
+    if (existsSync(join(root, directPath)) && existsSync(join(root, directPath, marker))) {
       found.push(directPath);
     }
   }
@@ -334,11 +308,7 @@ export function updateGoWork(tree: Tree, projectRoot: string) {
   tree.write(goWorkPath, serializeGoWork(content, [...entries, newEntry]));
 }
 
-export function updateRootPyProjectToml(
-  tree: Tree,
-  projectRoot: string,
-  projectName: string,
-) {
+export function updateRootPyProjectToml(tree: Tree, projectRoot: string, projectName: string) {
   const tomlPath = 'pyproject.toml';
 
   if (!tree.exists(tomlPath)) {
@@ -360,16 +330,15 @@ export function updateRootPyProjectToml(
     const pkgContent = tree.read('package.json', 'utf-8');
 
     if (pkgContent) {
-      const pkgName = (JSON.parse(pkgContent)['name'] as string | undefined)
+      const pkgName = (JSON.parse(pkgContent).name as string | undefined)
         ?.replace('@', '')
         .replace('/', '-');
-      const pkgDescription = JSON.parse(pkgContent)['description'] as
-        string | undefined;
-      const project = parsed['project'] as Record<string, unknown> | undefined;
+      const pkgDescription = JSON.parse(pkgContent).description as string | undefined;
+      const project = parsed.project as Record<string, unknown> | undefined;
 
       if (project) {
-        if (pkgName) project['name'] = pkgName;
-        if (pkgDescription) project['description'] = pkgDescription;
+        if (pkgName) project.name = pkgName;
+        if (pkgDescription) project.description = pkgDescription;
       }
     }
   }
@@ -418,9 +387,7 @@ export function purgeGoWork(root: string): boolean {
 
   const content = readFileSync(goWorkPath, 'utf-8');
   const entries = parseGoWorkEntries(content);
-  const presentEntries = entries.filter((e) =>
-    existsSync(join(root, e.replace(/^\.\//, ''))),
-  );
+  const presentEntries = entries.filter((e) => existsSync(join(root, e.replace(/^\.\//, ''))));
 
   const normalized = serializeGoWork(content, presentEntries);
   if (normalized === content) {
@@ -452,9 +419,7 @@ export function purgePyProjectToml(root: string): boolean {
   const removedCount = members.length - presentMembers.length;
 
   if (removedCount === 0) {
-    console.log(
-      'All pyproject.toml workspace members are valid, no cleanup needed.',
-    );
+    console.log('All pyproject.toml workspace members are valid, no cleanup needed.');
     return true;
   }
 
@@ -470,7 +435,7 @@ export function purgePyProjectToml(root: string): boolean {
     if (
       typeof value === 'object' &&
       value !== null &&
-      (value as Record<string, unknown>)['workspace'] === true &&
+      (value as Record<string, unknown>).workspace === true &&
       !presentNames.has(key)
     ) {
       delete sources[key];
@@ -502,16 +467,12 @@ export function purgePnpmWorkspace(root: string): boolean {
 
   const removedCount = originalCount - packages.items.length;
   if (removedCount === 0) {
-    console.log(
-      'All pnpm-workspace.yaml packages are valid, no cleanup needed.',
-    );
+    console.log('All pnpm-workspace.yaml packages are valid, no cleanup needed.');
     return true;
   }
 
   writeFileSync(join(root, 'pnpm-workspace.yaml'), doc.toString());
-  console.log(
-    `Removed ${removedCount} stale entries from pnpm-workspace.yaml.`,
-  );
+  console.log(`Removed ${removedCount} stale entries from pnpm-workspace.yaml.`);
   return true;
 }
 
@@ -526,16 +487,9 @@ export function syncGoWork(root: string): boolean {
 
   const content = readFileSync(goWorkPath, 'utf-8');
   const currentEntries = parseGoWorkEntries(content);
-  const currentPaths = new Set(
-    currentEntries.map((e) => e.replace(/^\.\//, '')),
-  );
+  const currentPaths = new Set(currentEntries.map((e) => e.replace(/^\.\//, '')));
 
-  const discovered = discoverProjects(
-    root,
-    GO_SCAN_DIRS,
-    GO_DIRECT_PROJECTS,
-    'go.mod',
-  );
+  const discovered = discoverProjects(root, GO_SCAN_DIRS, GO_DIRECT_PROJECTS, 'go.mod');
   const missing = discovered.filter((p) => !currentPaths.has(p));
 
   const allEntries = [...currentEntries, ...missing.map((p) => `./${p}`)];
@@ -567,12 +521,7 @@ export function syncPyProjectToml(root: string): boolean {
   const { parsed, members, sources } = data;
   const currentSet = new Set(members);
 
-  const discovered = discoverProjects(
-    root,
-    PY_SCAN_DIRS,
-    PY_DIRECT_PROJECTS,
-    'pyproject.toml',
-  );
+  const discovered = discoverProjects(root, PY_SCAN_DIRS, PY_DIRECT_PROJECTS, 'pyproject.toml');
   let addedCount = 0;
 
   for (const projectPath of discovered) {
@@ -609,16 +558,9 @@ export function syncPnpmWorkspace(root: string): boolean {
   if (!data) return true;
 
   const { doc, packages } = data;
-  const currentSet = new Set(
-    packages.items.map((item) => (item as { value: string }).value),
-  );
+  const currentSet = new Set(packages.items.map((item) => (item as { value: string }).value));
 
-  const discovered = discoverProjects(
-    root,
-    TS_SCAN_DIRS,
-    TS_DIRECT_PROJECTS,
-    'package.json',
-  );
+  const discovered = discoverProjects(root, TS_SCAN_DIRS, TS_DIRECT_PROJECTS, 'package.json');
   let addedCount = 0;
 
   for (const projectPath of discovered) {

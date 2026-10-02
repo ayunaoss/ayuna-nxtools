@@ -66,9 +66,9 @@ describe('Generate a project', () => {
       authorEmail: 'test@example.com',
     });
 
-    expect(
-      readProjectConfiguration(tree, 'acme-bufgen').targets?.codegen,
-    ).toMatchObject({ executor: '@ayunaio/scaffold:codegen-proto' });
+    expect(readProjectConfiguration(tree, 'acme-bufgen').targets?.codegen).toMatchObject({
+      executor: '@ayunaio/scaffold:codegen-proto',
+    });
     expect(readProjectConfiguration(tree, 'go-library')).toMatchObject({
       root: 'libs/go/go-library',
       projectType: 'library',

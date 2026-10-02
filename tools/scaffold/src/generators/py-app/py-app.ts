@@ -1,21 +1,12 @@
-import {
-  addProjectConfiguration,
-  formatFiles,
-  generateFiles,
-  names,
-  type Tree,
-} from '@nx/devkit';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import type { PyAppGeneratorSchema } from './schema.js';
+import { addProjectConfiguration, formatFiles, generateFiles, names, type Tree } from '@nx/devkit';
 import { updateRootPyProjectToml } from '../../utils.js';
+import type { PyAppGeneratorSchema } from './schema.js';
 
 const generatorDirectory = dirname(fileURLToPath(import.meta.url));
 
-export async function pyAppGenerator(
-  tree: Tree,
-  options: PyAppGeneratorSchema,
-) {
+export async function pyAppGenerator(tree: Tree, options: PyAppGeneratorSchema) {
   const resolvedNames = names(options.name);
   const resolvedNs = names(options.repoNamespace);
 

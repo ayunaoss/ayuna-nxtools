@@ -1,8 +1,8 @@
+import { readProjectConfiguration, type Tree } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
-import { Tree, readProjectConfiguration } from '@nx/devkit';
 
 import { pyLibGenerator } from './py-lib.js';
-import { PyLibGeneratorSchema } from './schema.js';
+import type { PyLibGeneratorSchema } from './schema.js';
 
 describe('py-lib generator', () => {
   let tree: Tree;

@@ -1,8 +1,7 @@
+import { readProjectConfiguration, type Tree } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
-import { Tree, readProjectConfiguration } from '@nx/devkit';
-
+import type { TsLibGeneratorSchema } from './schema.js';
 import { tsLibGenerator } from './ts-lib.js';
-import { TsLibGeneratorSchema } from './schema.js';
 
 describe('ts-lib generator', () => {
   let tree: Tree;

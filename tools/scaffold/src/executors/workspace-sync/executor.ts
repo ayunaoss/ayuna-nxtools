@@ -1,10 +1,5 @@
 import type { ExecutorContext } from '@nx/devkit';
-import {
-  syncGoWork,
-  syncPyProjectToml,
-  syncPnpmWorkspace,
-  syncRoot,
-} from '../../utils.js';
+import { syncGoWork, syncPnpmWorkspace, syncPyProjectToml, syncRoot } from '../../utils.js';
 
 export default async function workspaceSyncExecutor(
   _options: Record<string, never>,

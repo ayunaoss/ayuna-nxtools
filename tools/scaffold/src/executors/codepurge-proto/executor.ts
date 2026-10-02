@@ -1,5 +1,5 @@
-import type { ExecutorContext } from '@nx/devkit';
 import { join } from 'node:path';
+import type { ExecutorContext } from '@nx/devkit';
 import { codepurgeProto } from '../../utils.js';
 
 export default async function codepurgeProtoExecutor(

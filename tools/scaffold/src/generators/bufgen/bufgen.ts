@@ -1,25 +1,12 @@
-import {
-  addProjectConfiguration,
-  formatFiles,
-  generateFiles,
-  names,
-  type Tree,
-} from '@nx/devkit';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { addProjectConfiguration, formatFiles, generateFiles, names, type Tree } from '@nx/devkit';
+import { updateGoWork, updatePnpmWorkspace, updateRootPyProjectToml } from '../../utils.js';
 import type { InitBufgenGeneratorSchema } from './schema.js';
-import {
-  updateGoWork,
-  updateRootPyProjectToml,
-  updatePnpmWorkspace,
-} from '../../utils.js';
 
 const generatorDirectory = dirname(fileURLToPath(import.meta.url));
 
-export async function initBufgenGenerator(
-  tree: Tree,
-  options: InitBufgenGeneratorSchema,
-) {
+export async function initBufgenGenerator(tree: Tree, options: InitBufgenGeneratorSchema) {
   const resolvedNs = names(options.repoNamespace);
   const goModPrefix = options.goModPrefix ?? 'github.com/org/project';
   const goModulePath = `${goModPrefix}/bufgen/go`;

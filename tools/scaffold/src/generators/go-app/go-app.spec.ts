@@ -1,8 +1,8 @@
+import { readProjectConfiguration, type Tree } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
-import { Tree, readProjectConfiguration } from '@nx/devkit';
 
 import { goAppGenerator } from './go-app.js';
-import { GoAppGeneratorSchema } from './schema.js';
+import type { GoAppGeneratorSchema } from './schema.js';
 
 describe('go-app generator', () => {
   let tree: Tree;

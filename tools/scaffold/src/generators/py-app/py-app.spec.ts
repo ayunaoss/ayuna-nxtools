@@ -1,8 +1,8 @@
+import { readProjectConfiguration, type Tree } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
-import { Tree, readProjectConfiguration } from '@nx/devkit';
 
 import { pyAppGenerator } from './py-app.js';
-import { PyAppGeneratorSchema } from './schema.js';
+import type { PyAppGeneratorSchema } from './schema.js';
 
 describe('py-app generator', () => {
   let tree: Tree;

@@ -1,21 +1,12 @@
-import {
-  addProjectConfiguration,
-  formatFiles,
-  generateFiles,
-  names,
-  type Tree,
-} from '@nx/devkit';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import type { TsLibGeneratorSchema } from './schema.js';
+import { addProjectConfiguration, formatFiles, generateFiles, names, type Tree } from '@nx/devkit';
 import { updatePnpmWorkspace } from '../../utils.js';
+import type { TsLibGeneratorSchema } from './schema.js';
 
 const generatorDirectory = dirname(fileURLToPath(import.meta.url));
 
-export async function tsLibGenerator(
-  tree: Tree,
-  options: TsLibGeneratorSchema,
-) {
+export async function tsLibGenerator(tree: Tree, options: TsLibGeneratorSchema) {
   const resolvedNames = names(options.name);
   const resolvedNs = names(options.repoNamespace);
 
@@ -37,7 +28,7 @@ export async function tsLibGenerator(
       lint: {
         executor: 'nx:run-commands',
         options: {
-          command: `oxlint src`,
+          command: `biome check src`,
           cwd: projectRoot,
         },
       },
