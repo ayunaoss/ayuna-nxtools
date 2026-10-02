@@ -1,3 +1,14 @@
+## 0.1.7 (2026-10-02)
+
+### 🩹 Fixes
+
+- jest and swc config fixes ([bc0fdee](https://github.com/ayunaoss/ayuna-nxtools/commit/bc0fdee))
+- name issue with bufgen/files/ts/jest.config.cts template ([1e4beb9](https://github.com/ayunaoss/ayuna-nxtools/commit/1e4beb9))
+
+### ❤️ Thank You
+
+- Ayuna OSS
+
 ## 0.1.6 (2026-09-27)
 
 ### 🩹 Fixes
