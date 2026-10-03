@@ -1,3 +1,13 @@
+## 0.1.8 (2026-10-03)
+
+### 🩹 Fixes
+
+- Updated jest.config.cts templates and README ([820f5d3](https://github.com/ayunaoss/ayuna-nxtools/commit/820f5d3))
+
+### ❤️ Thank You
+
+- Ayuna OSS
+
 ## 0.1.7 (2026-10-02)
 
 ### 🩹 Fixes
