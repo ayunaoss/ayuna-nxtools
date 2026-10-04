@@ -38,8 +38,6 @@ scaffold-libs:
 		--summary "Golang models <%= repoNamespace %> generated from TypeSpec"; \
 	fi
 
-	sync && pnpm nx workspace-sync
-
 generate-ts:
 	@echo "📦 Generating TypeScript..."
 	npx orval --config src/orval.config.ts && \
