@@ -1,3 +1,21 @@
+## 0.1.9 (2026-10-04)
+
+### 🚀 Features
+
+- Added typegen generator ([ef698ab](https://github.com/ayunaoss/ayuna-nxtools/commit/ef698ab))
+
+### 🩹 Fixes
+
+- typegen issues with Makefile ([3c4a509](https://github.com/ayunaoss/ayuna-nxtools/commit/3c4a509))
+- Golang fix for non-referenced model generation ([4ed3dda](https://github.com/ayunaoss/ayuna-nxtools/commit/4ed3dda))
+- Fixes for running build command for typegen projects ([e51a5b8](https://github.com/ayunaoss/ayuna-nxtools/commit/e51a5b8))
+- Makefile fix in typegen ([6e0b7bf](https://github.com/ayunaoss/ayuna-nxtools/commit/6e0b7bf))
+- Updated README and removed vcs from biome config for projects ([d188937](https://github.com/ayunaoss/ayuna-nxtools/commit/d188937))
+
+### ❤️ Thank You
+
+- Ayuna OSS
+
 ## 0.1.8 (2026-10-03)
 
 ### 🩹 Fixes
