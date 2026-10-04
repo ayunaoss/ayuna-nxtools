@@ -57,7 +57,7 @@ generate-py:
 generate-go:
 	@echo "🐹 Generating Go..."
 	go run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@latest \
-		-generate types \
+		-generate types,skip-prune \
 		-package gotypes \
 		-o $(LIBS_ROOT)/go/gotypes/gotypes.go \
 		$(OPENAPI_OUT)
