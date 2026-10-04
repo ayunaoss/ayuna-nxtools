@@ -46,7 +46,10 @@ export async function goAppGenerator(tree: Tree, options: GoAppGeneratorSchema) 
 
   generateFiles(tree, join(generatorDirectory, 'files'), projectRoot, {
     repoNamespace: resolvedNs.fileName,
+    repoNamespaceClass: resolvedNs.className,
     name: resolvedNames.fileName,
+    nameClass: resolvedNames.className,
+    summary: options.summary ?? 'My sample Go application',
     modulePrefix: prefix,
     modulePath,
     tmpl: '',

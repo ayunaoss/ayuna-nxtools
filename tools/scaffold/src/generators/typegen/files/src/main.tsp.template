@@ -1,0 +1,55 @@
+import "@typespec/openapi";
+import "@typespec/openapi3";
+import "@typespec/http";
+
+using TypeSpec.Http;
+using TypeSpec.OpenAPI;
+
+@service(#{ title: "<%= repoNamespaceClass %> Models" })
+@info(#{
+    contact: #{ name: "<%= authorName %>", email: "<%= authorEmail %>" },
+    version: "0.1.0",
+})
+namespace <%= repoNamespaceClass %>;
+
+// 1. Enums
+enum EventStatus {
+    Pending: "pending",
+    Active: "active",
+    Resolved: "resolved",
+}
+
+// 2. Base Models & Optional Fields
+model UserProfile {
+    @format("uuid")
+    @minLength(12)
+    id: string;
+
+    @format("email")
+    email: string;
+
+    status: EventStatus;
+    metadata?: Record<unknown>; // Optional dictionary
+}
+
+// 3. Discriminated Unions (The Protobuf Killer)
+@discriminated(#{ envelope: "none", discriminatorPropertyName: "kind" })
+union WebhookEvent {
+    userCreated: UserCreatedEvent,
+    userDeleted: UserDeletedEvent,
+}
+
+model UserCreatedEvent {
+    kind: "userCreated";
+    timestamp: utcDateTime;
+    user: UserProfile;
+}
+
+model UserDeletedEvent {
+    kind: "userDeleted";
+    timestamp: utcDateTime;
+    deletedBy: string;
+}
+
+@route("/_dummy_export")
+op noOp(@body payload: {}): void;

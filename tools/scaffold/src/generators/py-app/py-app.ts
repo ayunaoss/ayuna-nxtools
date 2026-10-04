@@ -37,7 +37,7 @@ export async function pyAppGenerator(tree: Tree, options: PyAppGeneratorSchema) 
     repoNamespaceClass: resolvedNs.className,
     authorName: options.authorName,
     authorEmail: options.authorEmail,
-    summary: options.summary,
+    summary: options.summary ?? 'My sample Python application',
     tmpl: '',
   });
 

@@ -37,7 +37,7 @@ export async function pyLibGenerator(tree: Tree, options: PyLibGeneratorSchema) 
     repoNamespaceClass: resolvedNs.className,
     authorName: options.authorName,
     authorEmail: options.authorEmail,
-    summary: options.summary,
+    summary: options.summary ?? 'My sample Python library',
     tmpl: '',
   });
 

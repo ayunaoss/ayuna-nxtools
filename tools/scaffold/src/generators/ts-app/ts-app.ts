@@ -44,9 +44,11 @@ export async function tsAppGenerator(tree: Tree, options: TsAppGeneratorSchema) 
 
   generateFiles(tree, join(generatorDirectory, 'files'), projectRoot, {
     name: resolvedNames.fileName,
+    nameClass: resolvedNames.className,
     namePropertyName: resolvedNames.propertyName,
     projectName,
     repoNamespace: resolvedNs.fileName,
+    repoNamespaceClass: resolvedNs.className,
     authorName: options.authorName,
     authorEmail: options.authorEmail,
     summary: options.summary ?? 'My sample TypeScript application',

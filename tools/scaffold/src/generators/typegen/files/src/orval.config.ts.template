@@ -1,0 +1,33 @@
+import { defineConfig } from "orval";
+
+export default defineConfig({
+	<%= repoNamespace %>: {
+		output: {
+			mode: "single",
+			target: "../../libs/ts/<%= repoNamespace %>-tstypes/src/<%= repoNamespace %>.ts",
+			schemas: "../../libs/ts/<%= repoNamespace %>-tstypes/src/models",
+			client: "zod",
+			httpClient: "fetch",
+			mock: false,
+			override: {
+				zod: {
+					variant: "classic",
+					version: 4,
+					generateMeta: true,
+					generateCompanionTypes: true,
+					generateReusableSchemas: true,
+					generateDiscriminatedUnion: true,
+					useBrandedTypes: true,
+					coerce: {
+						query: true,
+						header: true,
+						param: true,
+					},
+				},
+			},
+		},
+		input: {
+			target: "../dist/<%= repoNamespace %>.yaml",
+		},
+	},
+});

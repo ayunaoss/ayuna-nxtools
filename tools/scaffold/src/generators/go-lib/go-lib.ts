@@ -46,7 +46,10 @@ export async function goLibGenerator(tree: Tree, options: GoLibGeneratorSchema) 
 
   generateFiles(tree, join(generatorDirectory, 'files'), projectRoot, {
     repoNamespace: resolvedNs.fileName,
+    repoNamespaceClass: resolvedNs.className,
     name: resolvedNames.fileName,
+    nameClass: resolvedNames.className,
+    summary: options.summary ?? 'My sample Go library',
     modulePrefix: prefix,
     modulePath,
     tmpl: '',

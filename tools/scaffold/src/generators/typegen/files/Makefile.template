@@ -1,0 +1,63 @@
+LIBS_ROOT = ../libs
+OPENAPI_OUT = dist/<%= repoNamespace %>.yaml
+
+.PHONY: generate all generate-ts generate-py generate-go
+
+all: generate
+
+generate: compile-tsp scaffold-libs generate-ts generate-py generate-go
+	@echo "✅ All models generated successfully."
+
+compile-tsp:
+	@echo "🔨 Compiling TypeSpec to OpenAPI 3..."
+	npx tsp compile src
+
+scaffold-libs:
+	@echo "🧩 Scaffolding library directories..."
+	if [ ! -d "$(LIBS_ROOT)/ts/<%= repoNamespace %>-tstypes" ]; then \
+		pnpm nx g @<%= repoNamespace %>/scaffold:ts-lib \
+		--repoNamespace <%= repoNamespace %> \
+		--name tstypes \
+		--authorName "<%= authorName %>" \
+		--authorEmail "<%= authorEmail %>" \
+		--summary "TypeScript models for <%= repoNamespace %> generated from TypeSpec"; \
+	fi
+	if [ ! -d "$(LIBS_ROOT)/py/<%= repoNamespace %>-pytypes" ]; then \
+		pnpm nx g @<%= repoNamespace %>/scaffold:py-lib \
+		--repoNamespace <%= repoNamespace %> \
+		--name pytypes \
+		--authorName "<%= authorName %>" \
+		--authorEmail "<%= authorEmail %>" \
+		--summary "Python models <%= repoNamespace %> generated from TypeSpec"; \
+	fi
+	if [ ! -d "$(LIBS_ROOT)/go/gotypes" ]; then \
+		pnpm nx g @<%= repoNamespace %>/scaffold:go-lib \
+		--repoNamespace <%= repoNamespace %> \
+		--name gotypes \
+		--modulePrefix <%= goModPrefix %>; \
+		--summary "Golang models <%= repoNamespace %> generated from TypeSpec"; \
+	fi
+
+generate-ts:
+	@echo "📦 Generating TypeScript..."
+	npx orval --config src/orval.config.ts
+
+generate-py:
+	@echo "🐍 Generating Python (Pydantic v2)..."
+	uvx --from datamodel-code-generator datamodel-codegen \
+		--input $(OPENAPI_OUT) \
+		--input-file-type openapi \
+		--output $(LIBS_ROOT)/py/<%= repoNamespace %>-pytypes/src/<%= repoNamespace %>_pytypes/models.py \
+		--output-model-type pydantic_v2.BaseModel \
+		--target-python-version 3.12 \
+		--formatters ruff-format \
+		--preset standard-py312-20260909 \
+		--use-union-operator
+
+generate-go:
+	@echo "🐹 Generating Go..."
+	go run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@latest \
+		-generate types \
+		-package gotypes \
+		-o $(LIBS_ROOT)/go/gotypes/gotypes.go \
+		$(OPENAPI_OUT)

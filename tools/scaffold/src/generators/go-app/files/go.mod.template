@@ -2,5 +2,6 @@ module <%= modulePath %>
 
 go 1.27.0
 
-require <%= modulePrefix %>/bufgen/go v0.0.0
-replace <%= modulePrefix %>/bufgen/go => ../../../bufgen/go
+// INFO: Uncomment the below lines to use bufgen generated code
+// require <%= modulePrefix %>/bufgen/go v0.0.0
+// replace <%= modulePrefix %>/bufgen/go => ../../../bufgen/go

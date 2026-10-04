@@ -1,0 +1,44 @@
+{
+  "private": true,
+  "type": "module",
+  "name": "@<%= repoNamespace %>/typegen",
+  "version": "0.1.0",
+  "description": "TypeSpec based model generator for Golang, Python and TypeScript",
+  "scripts": {
+    "clean": "rimraf dist",
+    "deepclean": "rimraf dist node_modules .tsbuildinfo",
+    "lint": "biome check src",
+    "format": "biome format --write src",
+    "test": "jest",
+    "build": "pnpm run clean && tsc -p tsconfig.json"
+  },
+  "keywords": ["<%= repoNamespace %>", "typegen", "application"],
+  "author": {
+    "name": "Ayuna OSS",
+    "email": "foss@ayuna.io"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.15",
+		"@nx/jest": "23.2.0",
+		"@swc/core": "^1.16.13",
+		"@swc/jest": "0.2.39",
+		"@types/jest": "^30.0.0",
+		"@types/node": "^24.13.2",
+		"@typespec/compiler": "^1.16.0",
+		"@typespec/http": "^1.16.0",
+		"@typespec/openapi": "^1.16.0",
+		"@typespec/openapi3": "^1.16.0",
+		"@typespec/rest": "^0.86.0",
+		"jest": "^30.4.2",
+		"orval": "^8.39.0",
+		"rimraf": "^6.1.3",
+		"typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "zod": "^4.6.5"
+  }
+}

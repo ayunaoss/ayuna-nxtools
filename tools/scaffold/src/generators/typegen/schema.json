@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/schema",
-  "$id": "GoLib",
-  "title": "Go Library Generator",
+  "$id": "Typegen",
+  "title": "Initialize typegen folder structure",
   "type": "object",
   "properties": {
     "repoNamespace": {
@@ -13,27 +13,31 @@
       },
       "x-prompt": "What is the repository namespace?"
     },
-    "name": {
+    "authorName": {
       "type": "string",
-      "description": "The name of the Go library",
+      "description": "The name of the author.",
       "$default": {
         "$source": "argv",
         "index": 1
       },
-      "x-prompt": "What is the library name would you like to use?"
+      "x-prompt": "What is the author's name?"
     },
-    "modulePrefix": {
+    "authorEmail": {
+      "type": "string",
+      "description": "The email of the author.",
+      "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+      "$default": {
+        "$source": "argv",
+        "index": 2
+      },
+      "x-prompt": "What is the author's email?"
+    },
+    "goModPrefix": {
       "type": "string",
       "description": "The module prefix for the Go library",
       "default": "github.com/org/project",
       "x-prompt": "What is the module prefix for the Go library?"
-    },
-    "summary": {
-      "type": "string",
-      "description": "A short summary of the Go library.",
-      "default": "My sample Go library",
-      "x-prompt": "What is this Go library about?"
     }
   },
-  "required": ["repoNamespace", "name"]
+  "required": ["repoNamespace", "authorName", "authorEmail"]
 }

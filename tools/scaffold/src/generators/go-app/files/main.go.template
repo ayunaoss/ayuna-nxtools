@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-
-	_ "<%= modulePrefix %>/bufgen/go/<%= repoNamespace %>/v1"
+	// INFO: Uncomment the below lines to use bufgen generated code.
+	// Update the version path as needed (e.g., v1).
+	// _ "<%= modulePrefix %>/bufgen/go/<%= repoNamespace %>/v1"
 )
 
 func main() {
-    fmt.Println("Hello from Ayuna!")
+	fmt.Println("Hello from Ayuna!")
 }

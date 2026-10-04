@@ -33,5 +33,7 @@
     "@swc/jest": "0.2.39",
     "typescript": "^5.9.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "zod": "^4.6.5"
+  }
 }

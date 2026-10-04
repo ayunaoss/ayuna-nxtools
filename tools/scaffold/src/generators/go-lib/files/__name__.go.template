@@ -2,8 +2,9 @@ package <%= name %>
 
 import (
 	"fmt"
-
-	_ "<%= modulePrefix %>/bufgen/go/<%= repoNamespace %>/v1"
+	// INFO: Uncomment the below lines to use bufgen generated code.
+	// Update the version path as needed (e.g., v1).
+	// _ "<%= modulePrefix %>/bufgen/go/<%= repoNamespace %>/v1"
 )
 
 func Hello(name string) string {

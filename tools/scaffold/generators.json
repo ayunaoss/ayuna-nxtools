@@ -5,6 +5,11 @@
       "schema": "./dist/generators/bufgen/schema.json",
       "description": "bufgen generator"
     },
+    "typegen": {
+      "factory": "./dist/generators/typegen/typegen.js",
+      "schema": "./dist/generators/typegen/schema.json",
+      "description": "typegen generator"
+    },
     "go-lib": {
       "factory": "./dist/generators/go-lib/go-lib.js",
       "schema": "./dist/generators/go-lib/schema.json",
