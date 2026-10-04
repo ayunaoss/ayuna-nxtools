@@ -145,6 +145,8 @@ pnpm nx run <repo-namespace>-bufgen:codepurge
 pnpm nx run <repo-namespace>-bufgen:codegen
 ```
 
+---
+
 ### Initialize typegen structure
 
 ```bash
@@ -170,6 +172,14 @@ cd ..
 pnpm nx workspace-sync
 pnpm nx sync
 ```
+
+> **NOTE**: The `make all` command scaffolds the following projects and populates the TypeSpec generated code appropriately.
+>
+> * Golang code under `libs/go/gotypes`
+> * Python code under `libs/py/<repo-namespace>-pytypes`
+> * TypeScript code under `libs/ts/<repo-namespace>-tstypes`
+
+---
 
 ### Generate libraries or applications as needed
 
@@ -199,6 +209,8 @@ pnpm nx g @ayunaio/scaffold:ts-lib --repoNamespace <repo-namespace> --name <proj
 pnpm nx g @ayunaio/scaffold:ts-app --repoNamespace <repo-namespace> --name <project-name> --authorName <author-name> --authorEmail <author-email> --summary <project-summary>
 ```
 
+---
+
 ### Sync workspace entries
 
 In order to ensure all generated (using *pnpm nx g @ayunaio/scaffold:...*), workspace projects have their entries updated in the root-level go.work, pyproject.toml or pnpm-workspace.yaml, you can run the following idempotent command.
@@ -208,6 +220,8 @@ pnpm nx workspace-sync
 pnpm nx sync
 ```
 
+---
+
 ### Cleanup stale workspace entries
 
 In case you have manually deleted any of the generated projects, run the following command to update the the root-level go.work, pnpm-workspace.yaml and pyproject.toml files. This command is idempotent.
@@ -216,3 +230,5 @@ In case you have manually deleted any of the generated projects, run the followi
 pnpm nx workspace-purge
 pnpm nx sync
 ```
+
+---
