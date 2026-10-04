@@ -38,9 +38,12 @@ scaffold-libs:
 		--summary "Golang models <%= repoNamespace %> generated from TypeSpec"; \
 	fi
 
+	sync && pnpm nx workspace-sync
+
 generate-ts:
 	@echo "📦 Generating TypeScript..."
-	npx orval --config src/orval.config.ts
+	npx orval --config src/orval.config.ts && \
+	sync && pnpm nx run <%= repoNamespace %>-tstypes:build
 
 generate-py:
 	@echo "🐍 Generating Python (Pydantic v2)..."
@@ -52,7 +55,8 @@ generate-py:
 		--target-python-version 3.12 \
 		--formatters ruff-format \
 		--preset standard-py312-20260909 \
-		--use-union-operator
+		--use-union-operator && \
+	sync && pnpm nx run <%= repoNamespace %>-pytypes:build
 
 generate-go:
 	@echo "🐹 Generating Go..."
@@ -60,4 +64,5 @@ generate-go:
 		-generate types,skip-prune \
 		-package gotypes \
 		-o $(LIBS_ROOT)/go/gotypes/gotypes.go \
-		$(OPENAPI_OUT)
+		$(OPENAPI_OUT) && \
+	sync && pnpm nx run gotypes:build

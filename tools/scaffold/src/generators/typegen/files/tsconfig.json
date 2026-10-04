@@ -1,0 +1,21 @@
+{
+	"extends": "../tsconfig.base.json",
+	"compilerOptions": {
+		"module": "nodenext",
+		"moduleResolution": "nodenext",
+		"allowImportingTsExtensions": false,
+		"emitDeclarationOnly": false,
+		"noEmit": false,
+		"verbatimModuleSyntax": false,
+		"noUncheckedIndexedAccess": false,
+		"declaration": false,
+		"declarationMap": false,
+		"sourceMap": true,
+		"composite": false,
+		"outDir": "dist",
+		"rootDir": "src",
+		"types": ["jest", "node"]
+	},
+	"include": ["src/**/*.ts", "src/**/*.tsp"],
+	"exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.test.ts"]
+}

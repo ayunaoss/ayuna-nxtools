@@ -215,7 +215,4 @@ test-output
 pyproject.toml
 uv.lock
 go.work
-bufgen
-typegen
-libs
-apps
+go.work.sum
