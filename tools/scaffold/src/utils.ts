@@ -30,7 +30,7 @@ const GO_DIRECT_PROJECTS = ['bufgen/go'];
 const PY_SCAN_DIRS = ['libs/py', 'apps/py'];
 const PY_DIRECT_PROJECTS = ['bufgen/py'];
 const TS_SCAN_DIRS = ['libs/ts', 'apps/ts'];
-const TS_DIRECT_PROJECTS = ['bufgen/ts'];
+const TS_DIRECT_PROJECTS = ['bufgen/ts', 'typegen'];
 
 const _scriptDir = dirname(fileURLToPath(import.meta.url));
 
@@ -582,12 +582,22 @@ export function syncPnpmWorkspace(root: string): boolean {
 
 export function syncRoot(root: string): boolean {
   try {
-    execSync('go work sync', { cwd: root, stdio: 'inherit' });
-    execSync('pnpm clean && pnpm install', { cwd: root, stdio: 'inherit' });
-    execSync('uv sync --refresh --all-groups --all-packages', {
-      cwd: root,
-      stdio: 'inherit',
-    });
+    if (existsSync(join(root, 'go.work'))) {
+      execSync('go work sync', { cwd: root, stdio: 'inherit' });
+    }
+
+    if (existsSync(join(root, 'pnpm-workspace.yaml'))) {
+      execSync('pnpm clean && pnpm install', { cwd: root, stdio: 'inherit' });
+    }
+
+    if (existsSync(join(root, 'pyproject.toml'))) {
+      execSync('uv sync --refresh --all-groups --all-packages', {
+        cwd: root,
+        stdio: 'inherit',
+      });
+    }
+
+    execSync(' pnpm nx run-many -t build', { cwd: root, stdio: 'inherit' });
 
     return true;
   } catch {

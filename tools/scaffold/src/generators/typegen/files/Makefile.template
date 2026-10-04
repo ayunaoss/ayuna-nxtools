@@ -34,7 +34,7 @@ scaffold-libs:
 		pnpm nx g @<%= repoNamespace %>/scaffold:go-lib \
 		--repoNamespace <%= repoNamespace %> \
 		--name gotypes \
-		--modulePrefix <%= goModPrefix %>; \
+		--modulePrefix <%= goModPrefix %> \
 		--summary "Golang models <%= repoNamespace %> generated from TypeSpec"; \
 	fi
 
@@ -44,7 +44,7 @@ generate-ts:
 
 generate-py:
 	@echo "🐍 Generating Python (Pydantic v2)..."
-	uvx --from datamodel-code-generator datamodel-codegen \
+	uvx --from datamodel-code-generator[ruff] datamodel-codegen \
 		--input $(OPENAPI_OUT) \
 		--input-file-type openapi \
 		--output $(LIBS_ROOT)/py/<%= repoNamespace %>-pytypes/src/<%= repoNamespace %>_pytypes/models.py \

@@ -1,6 +1,9 @@
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+
 import { addProjectConfiguration, formatFiles, generateFiles, names, type Tree } from '@nx/devkit';
+
+import { updatePnpmWorkspace } from '../../utils.js';
 import type { InitTypegenGeneratorSchema } from './schema.js';
 
 const generatorDirectory = dirname(fileURLToPath(import.meta.url));
@@ -35,6 +38,7 @@ export async function initTypegenGenerator(tree: Tree, options: InitTypegenGener
     tmpl: '',
   });
 
+  updatePnpmWorkspace(tree, 'typegen');
   await formatFiles(tree);
 }
 
